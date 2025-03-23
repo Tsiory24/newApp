@@ -1,0 +1,44 @@
+<!-- sidebar.html -->
+<aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark" th:fragment = "sideBar">
+    <div class="sidebar-brand">
+        <a href="./index.html" class="brand-link">
+            <img th:src="@{/assets/img/AdminLTELogo.png}" alt="AdminLTE Logo" class="brand-image opacity-75 shadow" />
+            <span class="brand-text fw-light">AdminLTE 4</span>
+        </a>
+    </div>
+    <div class="sidebar-wrapper">
+        <nav class="mt-2">
+            <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
+                <!-- Menu Vol -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-bs-toggle="collapse" aria-expanded="false" aria-controls="volMenu">
+                        <i class="nav-icon bi bi-plane-engines"></i>
+                        <p>Import CSV <i class="nav-arrow bi bi-chevron-right"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview collapse" id="volMenu">
+                        <li class="nav-item">
+                            <a href="/sendFormCsv" class="nav-link">
+                                <i class="nav-icon bi bi-circle"></i>
+                                <p>Form</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-bs-toggle="collapse" aria-expanded="false" aria-controls="volMenu">
+                        <i class="nav-icon bi bi-plane-engines"></i>
+                        <p>Chiffre d'Affaire <i class="nav-arrow bi bi-chevron-right"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview collapse" id="volMenu">
+                        <li class="nav-item">
+                            <a th:href="@{/chiffreAffaire}" class="nav-link">
+                                <i class="nav-icon bi bi-circle"></i>
+                                <p>Dashboard</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>

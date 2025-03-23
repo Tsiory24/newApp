@@ -1,0 +1,6 @@
+com/example/newApp/NewAppApplication.class
+com/example/newApp/service/AuthentificationService.class
+com/example/newApp/util/Utilitaire.class
+com/example/newApp/controller/IndexController.class
+com/example/newApp/util/ResponseUtil.class
+com/example/newApp/config/AppConfig.class
