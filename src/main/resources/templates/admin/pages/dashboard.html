@@ -32,63 +32,54 @@
                             <div class="col-lg-3 col-6">
                                 <div class="small-box text-bg-primary">
                                     <div class="inner">
-                                        <h3 th:text="${payee}"></h3>
-                                        <p>Client</p>
+                                        <h3 th:text="${offersCount}"></h3>
+                                        <p>Offer</p>
                                     </div>
-                                    <a th:href="@{/clients}" class="btn btn-light w-100">Voir la liste</a>
+                                    <a th:href="@{/admin/dashboard/offers}" class="btn btn-light w-100">Voir la liste</a>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-6">
                                 <div class="small-box text-bg-success">
                                     <div class="inner">
-                                        <h3 th:text="${payee}"></h3>
-                                        <p>Projet</p>
+                                        <h3 th:text="${sumPaymentDue}"></h3>
+                                        <p>A payer</p>
                                     </div>
-                                    <a th:href="@{/projects}" class="btn btn-light w-100">Voir la liste</a>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-6">
-                                <div class="small-box text-bg-info">
-                                    <div class="inner">
-                                        <h3 th:text="${payee}"></h3>
-                                        <p>Tasks</p>
-                                    </div>
-                                    <a th:href="@{/tasks}" class="btn btn-light w-100">Voir la liste</a>
+                                    <a th:href="@{/admin/dashboard/aPayer}" class="btn btn-light w-100">Voir la liste</a>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-6">
                                 <div class="small-box text-bg-warning">
                                     <div class="inner">
-                                        <h3 th:text="${payee}"></h3>
-                                        <p>Offer</p>
+                                        <h3 th:text="${invoicesCount}"></h3>
+                                        <p>Invoice</p>
                                     </div>
-                                    <a th:href="@{/offers}" class="btn btn-light w-100">Voir la liste</a>
+                                    <a th:href="@{/admin/dashboard/invoices}" class="btn btn-light w-100">Voir la liste</a>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-6">
                                 <div class="small-box text-bg-dark">
                                     <div class="inner">
-                                        <h3 th:text="${payee}"></h3>
-                                        <p>Invoice</p>
+                                        <h3 th:text="${totalAmountInvoice}"></h3>
+                                        <p>somme prix invoice</p>
                                     </div>
-                                    <a th:href="@{/invoices}" class="btn btn-light w-100">Voir la liste</a>
+                                    <a th:href="@{/dasboard/invoices}" class="btn btn-light w-100">Voir la liste</a>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-6">
                                 <div class="small-box text-bg-danger">
                                     <div class="inner">
-                                        <h3 th:text="${nonPayee}"></h3>
+                                        <h3 th:text="${sumPayment}"></h3>
                                         <p>Payement</p>
                                     </div>
-                                    <a th:href="@{/payments}" class="btn btn-light w-100">Voir la liste</a>
+                                    <a th:href="@{/admin/dashboard/detailsSommePrixInvoices}" class="btn btn-light w-100">Voir la liste</a>
                                 </div>
-                            </div>
+                            </div>                            
                                                         
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-7 connectedSortable">
-                                <div class="card mb-4">
+                            <div class="col-lg-4 connectedSortable">
+                                <div class="card mb-2 p-2">
                                     <div class="card-header">
                                         <h3 class="card-title">Sales Value</h3>
                                     </div>
@@ -97,12 +88,9 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         
-                        <!-- Histogram Chart -->
-                        <div class="row">
-                            <div class="col-lg-7 connectedSortable">
-                                <div class="card mb-4">
+                            <div class="col-lg-4 connectedSortable">
+                                <div class="card mb-2 p-2">
                                     <div class="card-header">
                                         <h3 class="card-title">Sales Distribution</h3>
                                     </div>
@@ -111,7 +99,20 @@
                                     </div>
                                 </div>
                             </div>
+                        
+                            <div class="col-lg-4 connectedSortable">
+                                <div class="card mb-2 p-2">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Répartition des paiements</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="pie-chart"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        
+                        
 
                         <!-- Table for Chiffre d'Affaires -->
                         <div class="row">
@@ -172,37 +173,47 @@ crossorigin="anonymous"></script>
 
     <script th:inline="javascript">
         document.addEventListener('DOMContentLoaded', function () {
-            //const chiffreAffaires = /*[[${chiffreAffaires}]]*/;
             const chiffreAffaires = [];
             console.log("Données chiffreAffaires :", chiffreAffaires);
-
+        
             const timestamps = chiffreAffaires.map(item => new Date(item.date).getTime());
             const payeeData = chiffreAffaires.map(item => item.payee);
             const nonPayeeData = chiffreAffaires.map(item => item.nonPayee);
-
-            const salesChartOptions = {
+        
+            // Graphique en courbe (Area Chart)
+            new ApexCharts(document.querySelector('#revenue-chart'), {
                 series: [
-                    { name: 'Payee', data: payeeData },
-                    { name: 'Non Payee', data: nonPayeeData }
+                    { name: 'Payée', data: payeeData },
+                    { name: 'Non Payée', data: nonPayeeData }
                 ],
                 chart: { height: 300, type: 'area', toolbar: { show: false } },
                 xaxis: { type: 'datetime', categories: timestamps },
                 tooltip: { x: { format: 'MMMM yyyy' } }
-            };
-            new ApexCharts(document.querySelector('#revenue-chart'), salesChartOptions).render();
-
-            const histogramChartOptions = {
+            }).render();
+        
+            // Histogramme (Bar Chart)
+            new ApexCharts(document.querySelector('#histogram-chart'), {
                 series: [
-                    { name: 'Payee', data: payeeData },
-                    { name: 'Non Payee', data: nonPayeeData }
+                    { name: 'Payée', data: payeeData },
+                    { name: 'Non Payée', data: nonPayeeData }
                 ],
                 chart: { height: 300, type: 'bar', toolbar: { show: false } },
                 plotOptions: { bar: { columnWidth: '50%' } },
                 xaxis: { type: 'datetime', categories: timestamps },
                 tooltip: { x: { format: 'MMMM yyyy' } }
-            };
-            new ApexCharts(document.querySelector('#histogram-chart'), histogramChartOptions).render();
+            }).render();
+        
+            // Diagramme circulaire (Pie Chart)
+            new ApexCharts(document.querySelector('#pie-chart'), {
+                series: [
+                    payeeData.reduce((a, b) => a + b, 0),  // Somme des paiements effectués
+                    nonPayeeData.reduce((a, b) => a + b, 0)  // Somme des paiements non effectués
+                ],
+                chart: { height: 300, type: 'pie' },
+                labels: ['Payée', 'Non Payée'],
+            }).render();
         });
+        
     </script>
 </body>
 </html>
