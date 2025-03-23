@@ -115,7 +115,7 @@
                         
 
                         <!-- Table for Chiffre d'Affaires -->
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
@@ -141,7 +141,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </main>
@@ -173,47 +173,52 @@ crossorigin="anonymous"></script>
 
     <script th:inline="javascript">
         document.addEventListener('DOMContentLoaded', function () {
-            const chiffreAffaires = [];
-            console.log("Données chiffreAffaires :", chiffreAffaires);
-        
-            const timestamps = chiffreAffaires.map(item => new Date(item.date).getTime());
-            const payeeData = chiffreAffaires.map(item => item.payee);
-            const nonPayeeData = chiffreAffaires.map(item => item.nonPayee);
-        
-            // Graphique en courbe (Area Chart)
+            // Données du modèle Thymeleaf
+            const paymentParAn = /*[[${paymentParAn}]]*/ []; // Paiements par année
+            const invoicelineParAn = /*[[${invoicelineParAn}]]*/ []; // Factures par année
+            const paymentMensuelles = /*[[${paymentMensuelles}]]*/ []; // Paiements mensuels
+            const nombreParTypePayment = /*[[${nombreParTypePayment}]]*/ []; // Nombre de paiements par type
+    
+            // Extraction des données pour la courbe (area chart)
+            const years = paymentParAn.map(item => item.year);
+            const paymentAmounts = paymentParAn.map(item => parseFloat(item.total_amount));
+            const invoiceAmounts = invoicelineParAn.map(item => parseFloat(item.total_amount));
+    
+            // 📊 Courbe des paiements et facturations par année (Area Chart)
             new ApexCharts(document.querySelector('#revenue-chart'), {
                 series: [
-                    { name: 'Payée', data: payeeData },
-                    { name: 'Non Payée', data: nonPayeeData }
+                    { name: 'Paiements', data: paymentAmounts },
+                    { name: 'Facturations', data: invoiceAmounts }
                 ],
                 chart: { height: 300, type: 'area', toolbar: { show: false } },
-                xaxis: { type: 'datetime', categories: timestamps },
-                tooltip: { x: { format: 'MMMM yyyy' } }
+                xaxis: { type: 'category', categories: years },
+                tooltip: { x: { format: 'yyyy' } }
             }).render();
-        
-            // Histogramme (Bar Chart)
+    
+            // 📊 Histogramme des paiements mensuels
+            const months = paymentMensuelles.map(item => item.month);
+            const totalAmounts = paymentMensuelles.map(item => parseFloat(item.total_amount));
+    
             new ApexCharts(document.querySelector('#histogram-chart'), {
                 series: [
-                    { name: 'Payée', data: payeeData },
-                    { name: 'Non Payée', data: nonPayeeData }
+                    { name: 'Montant payé', data: totalAmounts }
                 ],
                 chart: { height: 300, type: 'bar', toolbar: { show: false } },
                 plotOptions: { bar: { columnWidth: '50%' } },
-                xaxis: { type: 'datetime', categories: timestamps },
+                xaxis: { type: 'category', categories: months },
                 tooltip: { x: { format: 'MMMM yyyy' } }
             }).render();
-        
-            // Diagramme circulaire (Pie Chart)
+    
+            // 🎯 Pie Chart pour le nombre de paiements par type
+            const paymentTypeCounts = nombreParTypePayment.map(item => item.payment_count);
+            const paymentTypeLabels = nombreParTypePayment.map(item => item.payment_source);
+    
             new ApexCharts(document.querySelector('#pie-chart'), {
-                series: [
-                    payeeData.reduce((a, b) => a + b, 0),  // Somme des paiements effectués
-                    nonPayeeData.reduce((a, b) => a + b, 0)  // Somme des paiements non effectués
-                ],
+                series: paymentTypeCounts,
                 chart: { height: 300, type: 'pie' },
-                labels: ['Payée', 'Non Payée'],
+                labels: paymentTypeLabels,
             }).render();
         });
-        
     </script>
 </body>
 </html>
