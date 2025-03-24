@@ -33,6 +33,7 @@
                                                 <th>Invoice Number</th>
                                                 <th>Client</th>
                                                 <th>Status</th>
+                                                <th>Created At</th>
                                                 <th>Sent At</th>
                                                 <th>Due At</th>
                                                 <th>Total Amount</th>
@@ -49,6 +50,7 @@
                                                           th:classappend="${invoice.status == 'paid' ? 'badge bg-success' : 'badge bg-warning'}">
                                                     </span>
                                                 </td>
+                                                <td th:text="${#temporals.format(invoice.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
                                                 <td th:text="${#temporals.format(invoice.sentAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
                                                 <td th:text="${#temporals.format(invoice.dueAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
                                                 <td th:text="${invoice.totalAmount}"></td>

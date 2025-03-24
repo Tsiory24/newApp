@@ -1,6 +1,5 @@
 package com.example.newApp.controller;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +35,7 @@ public class PaymentController {
         List<Payment> payments = new ArrayList<>();
 
         // Définir le format de date utilisé par l'API
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        
 
         try {
             ResponseEntity<Map> response = restTemplate.getForEntity(apiUrl + "/payments", Map.class);
@@ -67,33 +66,15 @@ public class PaymentController {
                         payment.setPaymentSource((String) paymentMap.get("payment_source"));
 
                         // Parsing des dates
-                        payment.setPaymentDate(Util.parseDate((String) paymentMap.get("payment_date"), formatter));
-                        payment.setCreatedAt(Util.parseDate((String) paymentMap.get("created_at"), formatter));
-                        payment.setUpdatedAt(Util.parseDate((String) paymentMap.get("updated_at"), formatter));
-                        payment.setDeletedAt(Util.parseDate((String) paymentMap.get("deleted_at"), formatter));
+                        payment.setPaymentDate(Util.parseStringWithZTodate((String) paymentMap.get("payment_date")));
+                        payment.setCreatedAt(Util.parseStringWithZTodate((String) paymentMap.get("created_at")));
+                        payment.setUpdatedAt(Util.parseStringWithZTodate((String) paymentMap.get("updated_at")));
+                        payment.setDeletedAt(Util.parseStringWithZTodate((String) paymentMap.get("deleted_at")));
 
                         // Gestion de l'Invoice
-                        Map<String, Object> invoiceMap = (Map<String, Object>) paymentMap.get("invoice");
-                        if (invoiceMap != null) {
-                            Invoice invoice = new Invoice();
-                            invoice.setId((Integer) invoiceMap.get("id"));
-                            invoice.setExternalId((String) invoiceMap.get("external_id"));
-                            invoice.setStatus((String) invoiceMap.get("status"));
-                            invoice.setInvoiceNumber((Integer) invoiceMap.get("invoice_number"));
-                            invoice.setSentAt(Util.parseDate((String) invoiceMap.get("sent_at"), formatter));
-                            invoice.setDueAt(Util.parseDate((String) invoiceMap.get("due_at"), formatter));
-                            invoice.setIntegrationInvoiceId((String) invoiceMap.get("integration_invoice_id"));
-                            invoice.setIntegrationType((String) invoiceMap.get("integration_type"));
-                            invoice.setSourceType((String) invoiceMap.get("source_type"));
-                            invoice.setSourceId((Integer) invoiceMap.get("source_id"));
-                            invoice.setOfferId((Integer) invoiceMap.get("offer_id"));
-                            invoice.setDeletedAt(Util.parseDate((String) invoiceMap.get("deleted_at"), formatter));
-                            invoice.setCreatedAt(Util.parseDate((String) invoiceMap.get("created_at"), formatter));
-                            invoice.setUpdatedAt(Util.parseDate((String) invoiceMap.get("updated_at"), formatter));
-
-                            // Associer l'Invoice au Payment
-                            payment.setInvoice(invoice);
-                        }
+                        int invoiceId =  (int)paymentMap.get("invoice_id");
+                        payment.setInvoiceId(invoiceId);
+                       
 
                         payments.add(payment);
                     }
