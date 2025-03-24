@@ -16,7 +16,7 @@ public class Payment {
     private LocalDateTime paymentDate;
     private String integrationPaymentId;
     private String integrationType;
-    private Invoice invoice;  // Relation avec l'objet Invoice
+    private int invoiceId;  // Relation avec l'objet Invoice
     private LocalDateTime deletedAt;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
