@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <th:block th:replace="~{admin/fragments/head :: head}"></th:block>
+</head>
+
+<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+    <div class="app-wrapper">
+        <th:block th:replace="~{admin/fragments/header :: header}"></th:block>
+        
+        <th:block th:replace="~{admin/fragments/sideBar :: sideBar}"></th:block>
+
+        <div class="content-wrapper">
+            <div class="app-content">
+                <div class="container-fluid">
+                    <div class="row justify-content-center">
+                        <div class="col-md-10">
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <h3 class="card-title">Liste des Lignes de Factures</h3>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>External ID</th>
+                                                <th>Title</th>
+                                                <th>Comment</th>
+                                                <th>Price</th>
+                                                <th>Invoice ID</th>
+                                                <th>Offer ID</th>
+                                                <th>Type</th>
+                                                <th>Quantity</th>
+                                                
+                                                <th>Invoice Number</th> <!-- Si vous souhaitez l'afficher -->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Boucle pour afficher les lignes de facture -->
+                                            <tr th:each="line : ${invoiceLines}">
+                                                <td th:text="${line.id}"></td>
+                                                <td th:text="${line.externalId}"></td>
+                                                <td th:text="${line.title}"></td>
+                                                <td th:text="${line.comment}"></td>
+                                                <td th:text="${line.price}"></td>
+                                                <td th:text="${line.invoiceId}"></td>
+                                                <td th:text="${line.offerId}"></td>
+                                                <td th:text="${line.type}"></td>
+                                                <td th:text="${line.quantity}"></td>
+                                                <td th:text="${line.invoice != null ? line.invoice.invoiceNumber : 'N/A'}"></td>
+                                            </tr>
+                                        </tbody>                                        
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <th:block th:replace="~{admin/fragments/footer :: footer}"></th:block>
+    </div>
+
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/adminlte.min.js}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/browser/overlayscrollbars.browser.es6.min.js"
+            integrity="sha256-dghWARbRe2eLlIJ56wNB+b760ywulqK3DzZYEpsg2fQ=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+            integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+            crossorigin="anonymous"></script>
+</body>
+
+</html>
