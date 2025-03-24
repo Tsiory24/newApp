@@ -53,7 +53,7 @@
                                                 <td th:text="${payment.amount}"></td>
                                                 <td th:text="${payment.description}"></td>
                                                 <td th:text="${payment.paymentSource}"></td>
-                                                <td th:text="${payment.invoice != null ? payment.invoice.id : 'N/A'}"></td>
+                                                <td th:text="${payment.invoiceId}"></td>
                                                 <td th:text="${#temporals.format(payment.paymentDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                                                 <td th:text="${#temporals.format(payment.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
                                                 <td th:text="${#temporals.format(payment.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>

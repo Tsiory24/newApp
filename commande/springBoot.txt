@@ -1,1 +1,3 @@
 mvn spring-boot:run
+
+<td th:text="${payment.invoice != null ? payment.invoice.id : 'N/A'}"></td> ->

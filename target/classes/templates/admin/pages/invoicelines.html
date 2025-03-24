@@ -33,8 +33,10 @@
                                                 <th>Offer ID</th>
                                                 <th>Type</th>
                                                 <th>Quantity</th>
-                                                
-                                                <th>Invoice Number</th> <!-- Si vous souhaitez l'afficher -->
+                                                <th>Invoice Number</th>
+                                                <th>Created At</th> <!-- Nouvelle colonne pour la date de création -->
+                                                <th>Updated At</th> <!-- Nouvelle colonne pour la date de mise à jour -->
+                                                <th>Deleted At</th> <!-- Nouvelle colonne pour la date de suppression -->
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -50,6 +52,11 @@
                                                 <td th:text="${line.type}"></td>
                                                 <td th:text="${line.quantity}"></td>
                                                 <td th:text="${line.invoice != null ? line.invoice.invoiceNumber : 'N/A'}"></td>
+                                                
+                                                <!-- Affichage des dates formatées -->
+                                                <td th:text="${#temporals.format(line.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td> <!-- Formatage de createdAt -->
+                                                <td th:text="${#temporals.format(line.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td> <!-- Formatage de updatedAt -->
+                                                <td th:text="${#temporals.format(line.deletedAt, 'yyyy-MM-dd HH:mm:ss')}"></td> <!-- Formatage de deletedAt -->
                                             </tr>
                                         </tbody>                                        
                                     </table>

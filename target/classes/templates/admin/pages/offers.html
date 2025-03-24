@@ -15,53 +15,58 @@
         <!-- Importing sidebar.html -->
         <th:block th:replace="~{admin/fragments/sideBar :: sideBar}"></th:block>
                     <!-- offers.html -->
-            <div class="content-wrapper">
-                <div class="app-content">
-                    <div class="container-fluid">
-                        <div class="row justify-content-center">
-                            <div class="col-md-10">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <h3 class="card-title">Liste des Offres</h3>
-                                    </div>
-                                    <div class="card-body">
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>External ID</th>
-                                                    <th>Source Type</th>
-                                                    <th>Source ID</th>
-                                                    <th>Client</th>
-                                                    <th>Status</th>
-                                                    <th>Créé le</th>
-                                                    <th>Mis à jour le</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr th:each="offer : ${offers}">
-                                                    <td th:text="${offer.id}"></td>
-                                                    <td th:text="${offer.external_id}"></td>
-                                                    <td th:text="${offer.source_type}"></td>
-                                                    <td th:text="${offer.source_id}"></td>
-                                                    <td th:text="${offer.client.company_name}"></td>
-                                                    <td>
-                                                        <span th:text="${offer.status}" 
-                                                            th:classappend="${offer.status == 'won' ? 'badge bg-success' : 'badge bg-danger'}">
-                                                        </span>
-                                                    </td>
-                                                    <td th:text="${offer.created_at}"></td>
-                                                    <td th:text="${offer.updated_at}"></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                    <div class="content-wrapper">
+                        <div class="app-content">
+                            <div class="container-fluid">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-10">
+                                        <div class="card mb-4">
+                                            <div th:if="${error != null}" style="color: red;">
+                                                <p th:text="${error}"></p>
+                                            </div>                                            
+                                            <div class="card-header">
+                                                <h3 class="card-title">Liste des Offres</h3>
+                                            </div>
+                                            <div class="card-body">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>External ID</th>
+                                                            <th>Client</th>
+                                                            <th>Status</th>
+                                                            <th>Envoyé le</th>
+                                                            <th>Créé le</th>
+                                                            <th>Mis à jour le</th>
+                                                            <th>Supprimé le</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr th:each="offer : ${offers}">
+                                                            <td th:text="${offer.id}"></td>
+                                                            <td th:text="${offer.externalId}"></td>
+                                                            <td th:text="${offer.client != null ? offer.client.companyName : 'N/A'}"></td>
+                                                            <td>
+                                                                <span th:text="${offer.status}" 
+                                                                    th:classappend="${offer.status == 'won' ? 'badge bg-success' 
+                                                                        : (offer.status == 'lost' ? 'badge bg-danger' : 'badge bg-secondary')}">
+                                                                </span>
+                                                            </td>
+                                                            <td th:text="${offer.sent_at != null ? #temporals.format(offer.sent_at, 'dd/MM/yyyy HH:mm') : 'Non envoyé'}"></td>
+                                                            <td th:text="${#temporals.format(offer.createdAt, 'dd/MM/yyyy HH:mm')}"></td>
+                                                            <td th:text="${#temporals.format(offer.updatedAt, 'dd/MM/yyyy HH:mm')}"></td>
+                                                            
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>  
                     </div>
-                </div>  
-            </div>
+                                 
 
 
         <th:block th:replace="~{admin/fragments/footer :: footer}"></th:block>

@@ -35,7 +35,7 @@
                                         <h3 th:text="${offersCount}"></h3>
                                         <p>Offer</p>
                                     </div>
-                                    <a th:href="@{/admin/dashboard/offers}" class="btn btn-light w-100">Voir la liste</a>
+                                    <a th:href="@{/admin/offers}" class="btn btn-light w-100">Voir la liste</a>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-6">
@@ -53,7 +53,7 @@
                                         <h3 th:text="${invoicesCount}"></h3>
                                         <p>Invoice</p>
                                     </div>
-                                    <a th:href="@{/admin/dashboard/invoices}" class="btn btn-light w-100">Voir la liste</a>
+                                    <a th:href="@{/admin/invoices}" class="btn btn-light w-100">Voir la liste</a>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-6">
@@ -62,7 +62,7 @@
                                         <h3 th:text="${totalAmountInvoice}"></h3>
                                         <p>somme prix invoice</p>
                                     </div>
-                                    <a th:href="@{/admin/dashboard/detailsSommePrixInvoices}" class="btn btn-light w-100">Voir la liste</a>
+                                    <a th:href="@{/admin/detailsSommePrixInvoices}" class="btn btn-light w-100">Voir la liste</a>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-6">
@@ -183,6 +183,10 @@ crossorigin="anonymous"></script>
             const years = paymentParAn.map(item => item.year);
             const paymentAmounts = paymentParAn.map(item => parseFloat(item.total_amount));
             const invoiceAmounts = invoicelineParAn.map(item => parseFloat(item.total_amount));
+            paymentParAn.forEach(item => {
+                console.log(item);  // Affiche chaque élément du tableau
+            });
+            
     
             // 📊 Courbe des paiements et facturations par année (Area Chart)
             new ApexCharts(document.querySelector('#revenue-chart'), {
