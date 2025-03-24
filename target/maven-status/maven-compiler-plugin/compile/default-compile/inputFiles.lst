@@ -4,7 +4,15 @@
 /home/tsiory/s6/Eval1/v2/newApp/src/main/java/com/example/newApp/controller/AuthentificationController.java
 /home/tsiory/s6/Eval1/v2/newApp/src/main/java/com/example/newApp/controller/DashboardController.java
 /home/tsiory/s6/Eval1/v2/newApp/src/main/java/com/example/newApp/controller/IndexController.java
+/home/tsiory/s6/Eval1/v2/newApp/src/main/java/com/example/newApp/controller/PaymentController.java
+/home/tsiory/s6/Eval1/v2/newApp/src/main/java/com/example/newApp/controller/SettingsController.java
+/home/tsiory/s6/Eval1/v2/newApp/src/main/java/com/example/newApp/model/Client.java
+/home/tsiory/s6/Eval1/v2/newApp/src/main/java/com/example/newApp/model/Invoice.java
+/home/tsiory/s6/Eval1/v2/newApp/src/main/java/com/example/newApp/model/InvoiceLine.java
+/home/tsiory/s6/Eval1/v2/newApp/src/main/java/com/example/newApp/model/Payment.java
 /home/tsiory/s6/Eval1/v2/newApp/src/main/java/com/example/newApp/model/User.java
 /home/tsiory/s6/Eval1/v2/newApp/src/main/java/com/example/newApp/service/AuthentificationService.java
+/home/tsiory/s6/Eval1/v2/newApp/src/main/java/com/example/newApp/service/PaymentService.java
 /home/tsiory/s6/Eval1/v2/newApp/src/main/java/com/example/newApp/util/ResponseUtil.java
+/home/tsiory/s6/Eval1/v2/newApp/src/main/java/com/example/newApp/util/Util.java
 /home/tsiory/s6/Eval1/v2/newApp/src/main/java/com/example/newApp/util/Utilitaire.java

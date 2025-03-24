@@ -13,13 +13,13 @@
                 <li class="nav-item">
                     <a href="#" class="nav-link" data-bs-toggle="collapse" aria-expanded="false" aria-controls="volMenu">
                         <i class="nav-icon bi bi-plane-engines"></i>
-                        <p>Import CSV <i class="nav-arrow bi bi-chevron-right"></i></p>
+                        <p>configuration<i class="nav-arrow bi bi-chevron-right"></i></p>
                     </a>
                     <ul class="nav nav-treeview collapse" id="volMenu">
                         <li class="nav-item">
-                            <a href="/sendFormCsv" class="nav-link">
+                            <a th:href="@{/admin/remise}" class="nav-link">
                                 <i class="nav-icon bi bi-circle"></i>
-                                <p>Form</p>
+                                <p>remise</p>
                             </a>
                         </li>
                     </ul>
@@ -31,7 +31,7 @@
                     </a>
                     <ul class="nav nav-treeview collapse" id="volMenu">
                         <li class="nav-item">
-                            <a th:href="@{/chiffreAffaire}" class="nav-link">
+                            <a th:href="@{/admin/dashboard}" class="nav-link">
                                 <i class="nav-icon bi bi-circle"></i>
                                 <p>Dashboard</p>
                             </a>
