@@ -112,7 +112,7 @@ public String updatePayment(@RequestParam String externalId, @RequestParam doubl
         // Lire la réponse de l'API
         Map<String, Object> responseBody = responseEntity.getBody();
         String status = (String) responseBody.getOrDefault("status", "error");
-
+        System.out.println(status+" status");
         if ("success".equals(status)) {
             redirectAttributes.addFlashAttribute("message", "Paiement mis à jour avec succès !");
         } else {

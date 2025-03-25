@@ -78,28 +78,53 @@
                         </div>
 
                         <div class="row">
+                            <!-- Formulaire pour sélectionner l'année en haut -->
+                            <div class="col-lg-12 mb-4">
+                                <div class="card mb-2 p-2">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Sélectionner une année</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <!-- Formulaire -->
+                                        <form id="year-form" method="get" th:action="@{/admin/dashboard}">
+                                            <div class="mb-3">
+                                                <label for="year" class="form-label">Année</label>
+                                                <input type="number" name="year" class="form-control" id="year" placeholder="Entrez l'année">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary w-100">Valider</button>
+                                        </form>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Payment et facturation à gauche -->
                             <div class="col-lg-4 connectedSortable">
                                 <div class="card mb-2 p-2">
                                     <div class="card-header">
-                                        <h3 class="card-title">Sales Value</h3>
+                                        <h3 class="card-title">Payment et facturation</h3>
                                     </div>
                                     <div class="card-body">
                                         <div id="revenue-chart"></div>
                                     </div>
                                 </div>
                             </div>
-                        
+
+                            <!-- Histogramme pour les paiements mensuels au milieu -->
                             <div class="col-lg-4 connectedSortable">
                                 <div class="card mb-2 p-2">
                                     <div class="card-header">
-                                        <h3 class="card-title">Sales Distribution</h3>
+                                        <h3 class="card-title">Payment mensuelle</h3>
                                     </div>
                                     <div class="card-body">
                                         <div id="histogram-chart"></div>
                                     </div>
                                 </div>
                             </div>
-                        
+
+                            <!-- Répartition des paiements à droite -->
                             <div class="col-lg-4 connectedSortable">
                                 <div class="card mb-2 p-2">
                                     <div class="card-header">
@@ -112,36 +137,6 @@
                             </div>
                         </div>
                         
-                        
-
-                        <!-- Table for Chiffre d'Affaires -->
-                        <!-- <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h3 class="card-title">Chiffre d'Affaires</h3>
-                                    </div>
-                                    <div class="card-body">
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>Date</th>
-                                                    <th>Payee</th>
-                                                    <th>Non Payee</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr th:each="item : ${chiffreAffaires}">
-                                                    <td th:text="${item.date}"></td>
-                                                    <td th:text="${item.payee}"></td>
-                                                    <td th:text="${item.nonPayee}"></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
             </main>
@@ -153,22 +148,22 @@
     <script th:src="@{/js/adminlte.min.js}"></script>
 
     <!-- Third Party Plugin(OverlayScrollbars) -->
-<script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/browser/overlayscrollbars.browser.es6.min.js"
-integrity="sha256-dghWARbRe2eLlIJ56wNB+b760ywulqK3DzZYEpsg2fQ=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/browser/overlayscrollbars.browser.es6.min.js"
+            integrity="sha256-dghWARbRe2eLlIJ56wNB+b760ywulqK3DzZYEpsg2fQ=" crossorigin="anonymous"></script>
 
-<!-- Required Plugin(popperjs for Bootstrap 5) -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-crossorigin="anonymous"></script>
+    <!-- Required Plugin(popperjs for Bootstrap 5) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"></script>
 
-<!-- Required Plugin(Bootstrap 5) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-crossorigin="anonymous"></script>
-<!-- Optional Scripts -->
-<!-- sortablejs -->
-<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"
-    integrity="sha256-ipiJrswvAR4VAx/th+6zWsdeYmVae0iJuiR+6OqHJHQ=" crossorigin="anonymous"></script>
+    <!-- Required Plugin(Bootstrap 5) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+            integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+            crossorigin="anonymous"></script>
+
+    <!-- Optional Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"
+            integrity="sha256-ipiJrswvAR4VAx/th+6zWsdeYmVae0iJuiR+6OqHJHQ=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js"></script>
 
     <script th:inline="javascript">
@@ -178,16 +173,12 @@ crossorigin="anonymous"></script>
             const invoicelineParAn = /*[[${invoicelineParAn}]]*/ []; // Factures par année
             const paymentMensuelles = /*[[${paymentMensuelles}]]*/ []; // Paiements mensuels
             const nombreParTypePayment = /*[[${nombreParTypePayment}]]*/ []; // Nombre de paiements par type
-    
+
             // Extraction des données pour la courbe (area chart)
             const years = paymentParAn.map(item => item.year);
             const paymentAmounts = paymentParAn.map(item => parseFloat(item.total_amount));
             const invoiceAmounts = invoicelineParAn.map(item => parseFloat(item.total_amount));
-            paymentParAn.forEach(item => {
-                console.log(item);  // Affiche chaque élément du tableau
-            });
-            
-    
+
             // 📊 Courbe des paiements et facturations par année (Area Chart)
             new ApexCharts(document.querySelector('#revenue-chart'), {
                 series: [
@@ -198,11 +189,11 @@ crossorigin="anonymous"></script>
                 xaxis: { type: 'category', categories: years },
                 tooltip: { x: { format: 'yyyy' } }
             }).render();
-    
+
             // 📊 Histogramme des paiements mensuels
             const months = paymentMensuelles.map(item => item.month);
             const totalAmounts = paymentMensuelles.map(item => parseFloat(item.total_amount));
-    
+
             new ApexCharts(document.querySelector('#histogram-chart'), {
                 series: [
                     { name: 'Montant payé', data: totalAmounts }
@@ -212,11 +203,11 @@ crossorigin="anonymous"></script>
                 xaxis: { type: 'category', categories: months },
                 tooltip: { x: { format: 'MMMM yyyy' } }
             }).render();
-    
+
             // 🎯 Pie Chart pour le nombre de paiements par type
             const paymentTypeCounts = nombreParTypePayment.map(item => item.payment_count);
             const paymentTypeLabels = nombreParTypePayment.map(item => item.payment_source);
-    
+
             new ApexCharts(document.querySelector('#pie-chart'), {
                 series: paymentTypeCounts,
                 chart: { height: 300, type: 'pie' },

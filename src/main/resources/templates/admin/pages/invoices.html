@@ -30,7 +30,6 @@
                                             <tr>
                                                 <th>ID</th>
                                                 <th>External ID</th>
-                                                <th>Invoice Number</th>
                                                 <th>Client</th>
                                                 <th>Status</th>
                                                 <th>Created At</th>
@@ -43,7 +42,6 @@
                                             <tr th:each="invoice : ${invoices}">
                                                 <td th:text="${invoice.id}"></td>
                                                 <td th:text="${invoice.externalId}"></td>
-                                                <td th:text="${invoice.invoiceNumber}"></td>
                                                 <td th:text="${invoice.client != null ? invoice.client.companyName : 'N/A'}"></td>
                                                 <td>
                                                     <span th:text="${invoice.status}" 
