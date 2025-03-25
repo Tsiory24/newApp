@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -37,16 +38,19 @@ public class SettingsController {
                 Map<String, Object> data = (Map<String, Object>) responseBody.get("data");
                 if (data != null) {
                     Map<String, Object> remise = (Map<String, Object>) data.get("remise");
-                    model.addAttribute("remise", Double.parseDouble((String)remise.get("remise")));
+                    model.addAttribute("remise", Double.parseDouble((String) remise.get("remise")));
                 }
             }
-        }catch(Exception e){
+
+        } catch (Exception e) {
             model.addAttribute("error", "Erreur lors de la récupération de remise !");
             e.printStackTrace();
         }
         return "admin/pages/configurationRemise";
-
     }
+
+    
+
     
     @PostMapping("/settings/update")
     public String postMethodName(@RequestParam double remise,RedirectAttributes redirectAttributes) {
@@ -65,7 +69,6 @@ public class SettingsController {
             // Lire la réponse de l'API
             Map<String, Object> responseBody = responseEntity.getBody();
             String status = (String) responseBody.getOrDefault("status", "error");
-
             if ("success".equals(status)) {
                 redirectAttributes.addFlashAttribute("message", (String)responseBody.get("message"));
             } else {

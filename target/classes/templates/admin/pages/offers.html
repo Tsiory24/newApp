@@ -1,4 +1,3 @@
-<!-- home.html -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,132 +13,156 @@
         
         <!-- Importing sidebar.html -->
         <th:block th:replace="~{admin/fragments/sideBar :: sideBar}"></th:block>
-                    <!-- offers.html -->
-                    <div class="content-wrapper">
-                        <div class="app-content">
-                            <div class="container-fluid">
-                                <div class="row justify-content-center">
-                                    <div class="col-md-10">
-                                        <div class="card mb-4">
-                                            <div th:if="${error != null}" style="color: red;">
-                                                <p th:text="${error}"></p>
-                                            </div>                                            
-                                            <div class="card-header">
-                                                <h3 class="card-title">Liste des Offres</h3>
-                                            </div>
-                                            <div class="card-body">
-                                                <table class="table table-striped">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>External ID</th>
-                                                            <th>Client</th>
-                                                            <th>Status</th>
-                                                            <th>Envoyé le</th>
-                                                            <th>Créé le</th>
-                                                            <th>Mis à jour le</th>
-                                                            <th>Supprimé le</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr th:each="offer : ${offers}">
-                                                            <td th:text="${offer.id}"></td>
-                                                            <td th:text="${offer.externalId}"></td>
-                                                            <td th:text="${offer.client != null ? offer.client.companyName : 'N/A'}"></td>
-                                                            <td>
-                                                                <span th:text="${offer.status}" 
-                                                                    th:classappend="${offer.status == 'won' ? 'badge bg-success' 
-                                                                        : (offer.status == 'lost' ? 'badge bg-danger' : 'badge bg-secondary')}">
-                                                                </span>
-                                                            </td>
-                                                            <td th:text="${offer.sent_at != null ? #temporals.format(offer.sent_at, 'dd/MM/yyyy HH:mm') : 'Non envoyé'}"></td>
-                                                            <td th:text="${#temporals.format(offer.createdAt, 'dd/MM/yyyy HH:mm')}"></td>
-                                                            <td th:text="${#temporals.format(offer.updatedAt, 'dd/MM/yyyy HH:mm')}"></td>
-                                                            
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+        
+        <!-- offers.html -->
+        <div class="content-wrapper">
+            <div class="app-content">
+                <div class="container-fluid">
+                    <div class="row justify-content-center">
+                        <div class="col-md-10">
+                            <div class="card mb-4">
+                                <div th:if="${error != null}" style="color: red;">
+                                    <p th:text="${error}"></p>
+                                </div>                                            
+                                <div class="card-header">
+                                    <h3 class="card-title">Liste des Offres</h3>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    <!-- Nouvelle section pour l'affichage des offres par statut -->
+                                    <div class="row mb-4">
+                                        <div th:each="stat : ${offersByStatus}" class="col-lg-3 col-6">
+                                            <div class="small-box" th:classappend="${stat.status == 'accepted' ? 'bg-success' 
+                                                                                        : (stat.status == 'pending' ? 'bg-warning' 
+                                                                                        : (stat.status == 'rejected' ? 'bg-danger' 
+                                                                                        : 'bg-white'))}">
+                                                <div class="inner">
+                                                    <div class="d-flex align-items-center">
+                                                        <!-- Icône en fonction du statut -->
+                                                        <i th:class="${stat.status == 'accepted' ? 'fas fa-check-circle' 
+                                                                                                : (stat.status == 'pending' ? 'fas fa-clock' 
+                                                                                                : (stat.status == 'rejected' ? 'fas fa-times-circle' 
+                                                                                                : 'fas fa-question-circle'))}" 
+                                                        class="me-3"></i>
+                                                        <h3 th:text="${stat.total}"></h3>
+                                                    </div>
+                                                    <p th:text="${stat.status}"></p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                    
+                                    
+                                    <!-- Tableau des Offres -->
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>External ID</th>
+                                                <th>Client</th>
+                                                <th>Status</th>
+                                                <th>Envoyé le</th>
+                                                <th>Créé le</th>
+                                                <th>Mis à jour le</th>
+                                                <th>Supprimé le</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="offer : ${offers}">
+                                                <td th:text="${offer.id}"></td>
+                                                <td th:text="${offer.externalId}"></td>
+                                                <td th:text="${offer.client != null ? offer.client.companyName : 'N/A'}"></td>
+                                                <td>
+                                                    <span th:text="${offer.status}" 
+                                                          th:classappend="${offer.status == 'won' ? 'badge bg-success' 
+                                                          : (offer.status == 'lost' ? 'badge bg-danger' : 'badge bg-secondary')}">
+                                                    </span>
+                                                </td>
+                                                <td th:text="${offer.sent_at != null ? #temporals.format(offer.sent_at, 'dd/MM/yyyy HH:mm') : 'Non envoyé'}"></td>
+                                                <td th:text="${#temporals.format(offer.createdAt, 'dd/MM/yyyy HH:mm')}"></td>
+                                                <td th:text="${#temporals.format(offer.updatedAt, 'dd/MM/yyyy HH:mm')}"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
-                        </div>  
+                        </div>
                     </div>
-                                 
-
+                </div>
+            </div>  
+        </div>
 
         <th:block th:replace="~{admin/fragments/footer :: footer}"></th:block>
     </div>
 
-<!-- Importing required JS libraries -->
-<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
-<script th:src="@{/js/adminlte.min.js}"></script>
+    <!-- Importing required JS libraries -->
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/adminlte.min.js}"></script>
 
-<!-- Third Party Plugin(OverlayScrollbars) -->
-<script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/browser/overlayscrollbars.browser.es6.min.js"
-    integrity="sha256-dghWARbRe2eLlIJ56wNB+b760ywulqK3DzZYEpsg2fQ=" crossorigin="anonymous"></script>
+    <!-- Third Party Plugin(OverlayScrollbars) -->
+    <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/browser/overlayscrollbars.browser.es6.min.js"
+        integrity="sha256-dghWARbRe2eLlIJ56wNB+b760ywulqK3DzZYEpsg2fQ=" crossorigin="anonymous"></script>
 
-<!-- Required Plugin(popperjs for Bootstrap 5) -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-    crossorigin="anonymous"></script>
+    <!-- Required Plugin(popperjs for Bootstrap 5) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
 
-<!-- Required Plugin(Bootstrap 5) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-    crossorigin="anonymous"></script>
+    <!-- Required Plugin(Bootstrap 5) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
 
-<!-- Optional Scripts -->
-<!-- sortablejs -->
-<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"
-    integrity="sha256-ipiJrswvAR4VAx/th+6zWsdeYmVae0iJuiR+6OqHJHQ=" crossorigin="anonymous"></script>
-<script>
-    const connectedSortables = document.querySelectorAll('.connectedSortable');
-    connectedSortables.forEach((connectedSortable) => {
-        let sortable = new Sortable(connectedSortable, {
-            group: 'shared',
-            handle: '.card-header',
+    <!-- Optional Scripts -->
+    <!-- sortablejs -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"
+        integrity="sha256-ipiJrswvAR4VAx/th+6zWsdeYmVae0iJuiR+6OqHJHQ=" crossorigin="anonymous"></script>
+    <script>
+        const connectedSortables = document.querySelectorAll('.connectedSortable');
+        connectedSortables.forEach((connectedSortable) => {
+            let sortable = new Sortable(connectedSortable, {
+                group: 'shared',
+                handle: '.card-header',
+            });
         });
-    });
 
-    const cardHeaders = document.querySelectorAll('.connectedSortable .card-header');
-    cardHeaders.forEach((cardHeader) => {
-        cardHeader.style.cursor = 'move';
-    });
-</script>
+        const cardHeaders = document.querySelectorAll('.connectedSortable .card-header');
+        cardHeaders.forEach((cardHeader) => {
+            cardHeader.style.cursor = 'move';
+        });
+    </script>
 
-<!-- apexcharts -->
-<script src="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js"
-    integrity="sha256-+vh8GkaU7C9/wbSLIcwq82tQ2wTf44aOHA8HlBMwRI8=" crossorigin="anonymous"></script>
+    <!-- apexcharts -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js"
+        integrity="sha256-+vh8GkaU7C9/wbSLIcwq82tQ2wTf44aOHA8HlBMwRI8=" crossorigin="anonymous"></script>
 
-<!-- jsvectormap -->
-<script src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/js/jsvectormap.min.js"
-    integrity="sha256-/t1nN2956BT869E6H4V1dnt0X5pAQHPytli+1nTZm2Y=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/maps/world.js"
-    integrity="sha256-XPpPaZlU8S/HWf7FZLAncLg2SAkP8ScUTII89x9D3lY=" crossorigin="anonymous"></script>
+    <!-- jsvectormap -->
+    <script src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/js/jsvectormap.min.js"
+        integrity="sha256-/t1nN2956BT869E6H4V1dnt0X5pAQHPytli+1nTZm2Y=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/maps/world.js"
+        integrity="sha256-XPpPaZlU8S/HWf7FZLAncLg2SAkP8ScUTII89x9D3lY=" crossorigin="anonymous"></script>
 
-<script>
-    const visitorsData = {
-        US: 398, // USA
-        SA: 400, // Saudi Arabia
-        CA: 1000, // Canada
-        DE: 500, // Germany
-        FR: 760, // France
-        CN: 300, // China
-        AU: 700, // Australia
-        BR: 600, // Brazil
-        IN: 800, // India
-        GB: 320, // Great Britain
-        RU: 3000, // Russia
-    };
+    <script>
+        const visitorsData = {
+            US: 398, // USA
+            SA: 400, // Saudi Arabia
+            CA: 1000, // Canada
+            DE: 500, // Germany
+            FR: 760, // France
+            CN: 300, // China
+            AU: 700, // Australia
+            BR: 600, // Brazil
+            IN: 800, // India
+            GB: 320, // Great Britain
+            RU: 3000, // Russia
+        };
 
-    // World map by jsVectorMap
-    const map = new jsVectorMap({
-        selector: '#world-map',
-        map: 'world',
-    });
-</script>
+        // World map by jsVectorMap
+        const map = new jsVectorMap({
+            selector: '#world-map',
+            map: 'world',
+        });
+    </script>
 </body>
 
 </html>

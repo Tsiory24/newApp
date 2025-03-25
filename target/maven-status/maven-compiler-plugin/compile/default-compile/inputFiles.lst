@@ -1,4 +1,5 @@
 /home/tsiory/s6/Eval1/v2/newApp/src/main/java/com/example/newApp/NewAppApplication.java
+/home/tsiory/s6/Eval1/v2/newApp/src/main/java/com/example/newApp/classHelper/OffersByStatus.java
 /home/tsiory/s6/Eval1/v2/newApp/src/main/java/com/example/newApp/config/AppConfig.java
 /home/tsiory/s6/Eval1/v2/newApp/src/main/java/com/example/newApp/config/RoleInterceptor.java
 /home/tsiory/s6/Eval1/v2/newApp/src/main/java/com/example/newApp/controller/AuthentificationController.java
@@ -15,6 +16,7 @@
 /home/tsiory/s6/Eval1/v2/newApp/src/main/java/com/example/newApp/model/Payment.java
 /home/tsiory/s6/Eval1/v2/newApp/src/main/java/com/example/newApp/model/User.java
 /home/tsiory/s6/Eval1/v2/newApp/src/main/java/com/example/newApp/service/AuthentificationService.java
+/home/tsiory/s6/Eval1/v2/newApp/src/main/java/com/example/newApp/service/OfferService.java
 /home/tsiory/s6/Eval1/v2/newApp/src/main/java/com/example/newApp/service/PaymentService.java
 /home/tsiory/s6/Eval1/v2/newApp/src/main/java/com/example/newApp/util/ResponseUtil.java
 /home/tsiory/s6/Eval1/v2/newApp/src/main/java/com/example/newApp/util/Util.java

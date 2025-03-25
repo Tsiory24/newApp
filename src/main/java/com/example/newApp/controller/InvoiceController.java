@@ -44,7 +44,7 @@ public String showInvoices(Model model) {
                     invoice.setId((Integer) invoiceMap.get("id"));
                     invoice.setExternalId((String) invoiceMap.get("external_id"));
                     invoice.setStatus((String) invoiceMap.get("status"));
-                    invoice.setInvoiceNumber((Integer) invoiceMap.get("invoice_number"));
+                    // invoice.setInvoiceNumber((Integer) invoiceMap.get("invoice_number"));
 
                     // Conversion des dates en LocalDateTime
                     invoice.setSentAt(Util.parseSentAtDate((String) invoiceMap.get("sent_at")));
@@ -55,7 +55,11 @@ public String showInvoices(Model model) {
                     client.setId((Integer) invoiceMap.get("client_id"));
                     client.setCompanyName((String) invoiceMap.get("company_name"));
                     invoice.setClient(client);
-                    invoice.setOfferId((int)invoiceMap.get("offer_id"));
+                    int offer_id = 0;
+                    if(invoiceMap.get("offer_id")!=null){
+                        offer_id = (int)invoiceMap.get("offer_id");
+                    }
+                    invoice.setOfferId(offer_id);
                     invoice.setCreatedAt(Util.parseSentAtDate((String) invoiceMap.get("created_at")));
 
                     // Setting total amount as BigDecimal
@@ -112,7 +116,7 @@ public String showInvoices(Model model) {
                         invoiceLine.setOfferId((Integer) invoiceLineMap.get("offer_id"));
                         invoiceLine.setType((String) invoiceLineMap.get("type"));
                         invoiceLine.setQuantity((Integer) invoiceLineMap.get("quantity"));
-                        invoiceLine.setProductId((Integer) invoiceLineMap.get("product_id"));
+                        invoiceLine.setProductId(Integer.parseInt((String) invoiceLineMap.get("product_id")));
                         invoiceLine.setCreatedAt(Util.parseStringWithZTodate((String)invoiceLineMap.get("created_at")));
                         invoiceLine.setUpdatedAt(Util.parseStringWithZTodate((String)invoiceLineMap.get("updated_at")));
                         invoiceLine.setDeletedAt(Util.parseStringWithZTodate((String)invoiceLineMap.get("deleted_at")));
@@ -124,7 +128,7 @@ public String showInvoices(Model model) {
                             invoice.setId((Integer) invoiceMap.get("id"));
                             invoice.setExternalId((String) invoiceMap.get("external_id"));
                             invoice.setStatus((String) invoiceMap.get("status"));
-                            invoice.setInvoiceNumber((Integer) invoiceMap.get("invoice_number"));
+                            // invoice.setInvoiceNumber((Integer) invoiceMap.get("invoice_number"));
                             invoice.setSentAt(Util.parseSentAtDate((String)invoiceMap.get("sent_at")));
                             invoice.setDueAt(Util.parseStringWithZTodate((String)invoiceMap.get("due_at")));
                             // invoice.setClientId((Integer) invoiceMap.get("client_id"));                            

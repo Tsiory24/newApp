@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 
+import com.example.newApp.classHelper.OffersByStatus;
 import com.example.newApp.model.Client;
 import com.example.newApp.model.Invoice;
 import com.example.newApp.model.Offer;
+import com.example.newApp.service.OfferService;
 import com.example.newApp.util.Util;
 
 import java.util.ArrayList;
@@ -61,6 +63,9 @@ public class OfferController {
                             offers.add(offer);
                         }
                     }
+                    List<OffersByStatus> offersByStatusList = OfferService.parseOffersByStatus((List<Map<String, Object>>) responseData.get("offers_by_status"));
+                    model.addAttribute("offersByStatus", offersByStatusList);
+
                 }
             }
             model.addAttribute("offers", offers);
